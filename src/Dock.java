@@ -73,6 +73,12 @@ public class Dock extends GameObject{
                     handler.removeObject(tempObject);
                 }
             }
+            if (tempObject.getId() == ID.AmmoPickUp) {
+
+                if (getBounds().intersects(tempObject.getBounds())) {
+                    handler.removeObject(tempObject);
+                }
+            }
 
         }
 
