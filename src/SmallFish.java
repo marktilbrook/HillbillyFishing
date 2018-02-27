@@ -89,6 +89,7 @@ public class SmallFish extends GameObject {
                         handler.removeObject(this);
                     }
 
+
                 }
             }
 
@@ -103,7 +104,9 @@ public class SmallFish extends GameObject {
 
             }
 
-            if (posY > Game.HEIGHT){
+
+
+            if (posY > Game.HEIGHT+96){
                 handler.removeObject(this);
 
 

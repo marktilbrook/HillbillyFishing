@@ -3,12 +3,6 @@ import java.awt.image.BufferedImage;
 
 public class Dock extends GameObject{
 
-    //todo make wooden dock
-    //todo figure out how to render many docks put together
-
-
-
-
     private BufferedImage dockImage = null;
 
     private BufferedImage sprite_sheet = null;

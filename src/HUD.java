@@ -10,7 +10,7 @@ public class HUD {
     private int fishCaught = 0;
     private int snakesKilled = 0;
     private int drunkLevel = 0;
-    private int ammo = 11; //todo work on ammo pickups
+    private int ammo = 11;
 
     private int time = 0;
     private int level = 1;

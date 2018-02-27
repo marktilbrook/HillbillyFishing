@@ -5,6 +5,7 @@ public enum ID {
     Snake,
     MoneyFish,
     BeerPickUp,
+    AmmoPickUp,
     Bullet,
     Dock;
 }

@@ -119,3 +119,5 @@ public class BigFish extends GameObject{
 
     }
 }
+
+//todo make big fish bigger
