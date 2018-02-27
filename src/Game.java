@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2018. Mark James Tilbrook
+ */
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -5,6 +9,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
+
+
 
 public class Game extends Canvas implements Runnable {
 

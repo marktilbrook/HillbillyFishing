@@ -3,8 +3,8 @@ import java.awt.image.BufferedImage;
 
 public class BigFish extends GameObject{
 
-    private int width = 32;
-    private int height = 32;
+    private int width = 28;
+    private int height = 64;
     private boolean isDead = false;
 
     private BufferedImage[] bigfish_image = new BufferedImage[4];
@@ -30,10 +30,10 @@ public class BigFish extends GameObject{
         sprite_sheet = loader.loadImage("/animales2.png");//load spritesheet
 
         ss = new SpriteSheet(sprite_sheet);
-        bigfish_image[0] = ss.grabImage(4,1,32,32);
-        bigfish_image[1] = ss.grabImage(5,1,32,32);
-        bigfish_image[2] = ss.grabImage(6,1,32,32);
-        bigfish_image[3] = ss.grabImage(12,1,32,32);
+        bigfish_image[0] = ss.grabImage(4,1,32,64);
+        bigfish_image[1] = ss.grabImage(5,1,32,64);
+        bigfish_image[2] = ss.grabImage(6,1,32,64);
+        bigfish_image[3] = ss.grabImage(7,6,32,64);
 
         anim = new Animation(3,bigfish_image[0],bigfish_image[1],bigfish_image[2]);
         velY = 2;
@@ -58,10 +58,10 @@ public class BigFish extends GameObject{
             g.drawImage(bigfish_image[3],(int)posX,(int)posY,null);
         }
 
-//        //use this to see collision box
-//        Graphics2D g2d = (Graphics2D) g;
-//        g.setColor(Color.pink);
-//        g2d.draw(getBounds());
+        //use this to see collision box
+        Graphics2D g2d = (Graphics2D) g;
+        g.setColor(Color.pink);
+        g2d.draw(getBounds());
     }
 
     @Override
@@ -120,4 +120,4 @@ public class BigFish extends GameObject{
     }
 }
 
-//todo make big fish bigger
+

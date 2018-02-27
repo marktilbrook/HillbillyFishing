@@ -39,6 +39,7 @@ public class Spawn {
                     handler.addObject(new SmallFish(r.nextInt(Game.WIDTH - 60),-r.nextInt(1200),ID.SmallFish,handler,ss,hud));
                     handler.addObject(new SmallFish(r.nextInt(Game.WIDTH - 60),-r.nextInt(1200),ID.SmallFish,handler,ss,hud));
                     handler.addObject(new SmallFish(r.nextInt(Game.WIDTH - 60),-r.nextInt(1200),ID.SmallFish,handler,ss,hud));
+                    handler.addObject(new BigFish(r.nextInt(Game.WIDTH - 60),-r.nextInt(600),ID.BigFish,handler,ss,hud));
                     handler.addObject(new BeerPickUp(r.nextInt(Game.WIDTH - 60),-r.nextInt(1200),ID.BeerPickUp,handler,ss,hud,player));
                     handler.addObject(new AmmoPickUp(r.nextInt(Game.WIDTH - 60),-r.nextInt(1200),ID.AmmoPickUp,handler,ss,hud,player));
                     break;
@@ -48,12 +49,13 @@ public class Spawn {
                     handler.addObject(new BigFish(r.nextInt(Game.WIDTH - 60),-r.nextInt(600),ID.BigFish,handler,ss,hud));
                     handler.addObject(new Snake(r.nextInt(Game.WIDTH - 60),-r.nextInt(1200),ID.Snake,handler,ss,hud));
                     handler.addObject(new AmmoPickUp(r.nextInt(Game.WIDTH - 60),-r.nextInt(1200),ID.AmmoPickUp,handler,ss,hud,player));
+                    handler.addObject(new BigFish(r.nextInt(Game.WIDTH - 60),-r.nextInt(600),ID.BigFish,handler,ss,hud));
                     break;
 
                 case 4:
                     System.out.println("Level 4");
+                    handler.addObject(new BigFish(r.nextInt(Game.WIDTH - 60),-r.nextInt(600),ID.BigFish,handler,ss,hud));
                     handler.addObject(new Snake(r.nextInt(Game.WIDTH - 60),-r.nextInt(1200),ID.Snake,handler,ss,hud));
-
                     break;
 
             }
