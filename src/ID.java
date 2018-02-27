@@ -2,8 +2,9 @@ public enum ID {
     Player,
     SmallFish,
     BigFish,
-    BadFish,
+    Snake,
     MoneyFish,
     BeerPickUp,
-    Bullet
+    Bullet,
+    Dock;
 }
