@@ -11,6 +11,7 @@ public class HUD {
     private int snakesKilled = 0;
     private int drunkLevel = 0;
     private int ammo = 11;
+    private int nets = 3;
 
     private int time = 0;
     private int level = 1;
@@ -49,6 +50,7 @@ public class HUD {
         g.drawString("Drunk level: " + drunkLevel ,15,146);
 
         g.drawString("AMMO: " + ammo,15, 400);
+        g.drawString("NETS: " + nets,15, 450);
 
     }
 
@@ -103,5 +105,13 @@ public class HUD {
 
     public void setSnakesKilled(int snakesKilled) {
         this.snakesKilled = snakesKilled;
+    }
+
+    public int getNets() {
+        return nets;
+    }
+
+    public void setNets(int nets) {
+        this.nets = nets;
     }
 }

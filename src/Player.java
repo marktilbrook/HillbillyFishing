@@ -144,7 +144,7 @@ public class Player extends GameObject {
 
 
 
-//todo start net throwing function
+
 
 
 

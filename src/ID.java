@@ -7,5 +7,6 @@ public enum ID {
     BeerPickUp,
     AmmoPickUp,
     Bullet,
+    Net,
     Dock;
 }

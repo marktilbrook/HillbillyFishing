@@ -63,13 +63,13 @@ public class Game extends Canvas implements Runnable {
         dock3 = new Dock(288,620,ID.Dock,handler,ss);
         dock4 = new Dock(384,620,ID.Dock,handler,ss);
 
-        this.addKeyListener(new KeyInput(handler));
+        this.addKeyListener(new KeyInput(handler, hud));
         this.addMouseListener(menu);
         this.addMouseListener(new MouseInput(handler,hud));
         new Window(WIDTH,HEIGHT,"Catch Fish",this);
         start();
 
-//        hud = new HUD();
+
         spawner = new Spawn(handler,hud,player);
 
 

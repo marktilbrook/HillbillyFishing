@@ -12,7 +12,7 @@ public class Bullet extends GameObject {
         super(posX, posY, id);
         this.handler = handler;
 
-        velX = (mouseX - posX) / speed;// chan
+        velX = (mouseX - posX) / speed;
         velY = (mouseY - posY) / speed;
 
 

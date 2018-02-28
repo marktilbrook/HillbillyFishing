@@ -14,6 +14,8 @@ public class MouseInput extends MouseAdapter {
 
     }
 
+
+
     @Override
     public void mousePressed(MouseEvent e) {
         int mouseX = e.getX();

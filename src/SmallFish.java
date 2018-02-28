@@ -48,7 +48,7 @@ public class SmallFish extends GameObject {
         posY += velY;
         posX += velX;
 
-//        velY = 5;//change this to change speed
+
 
         collision();
         anim.runAnimation();
