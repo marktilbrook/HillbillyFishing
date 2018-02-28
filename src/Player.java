@@ -1,63 +1,152 @@
+
+
+import javax.imageio.ImageIO;
 import java.awt.*;
-import java.util.Random;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+
 
 public class Player extends GameObject {
 
-    Random r = new Random();
-    Handler handler;
+    private int width = 32;
+    private int height = 64;
+    private boolean isDead = false;
+    private static int money = 0;
 
 
-    public Player(float x, float y, ID id,Handler handler) {
-        super(x,y,id);
+    private static int drunkLevel = 0;
+    private static int speed = 4;
 
+    private BufferedImage[] player_image = new BufferedImage[7];
+
+    Animation animRight;
+    Animation animLeft;
+
+    protected Handler handler;
+    protected Game game;
+
+
+
+    public Player(float posX, float posY, ID id, Handler handler, Game game, SpriteSheet ss) {
+        super(posX, posY, id);
         this.handler = handler;
+        this.game = game;
+        this.ss = ss;
 
 
 
+        player_image[0] = ss.grabImage(10,3,32,64);//idle
+
+        //right
+        player_image[1] = ss.grabImage(10,5,32,64);
+        player_image[2] = ss.grabImage(11,5,32,64);
+        player_image[3] = ss.grabImage(12,5,32,64);
+
+        //left
+        player_image[4] = ss.grabImage(10,7,32,64);
+        player_image[5] = ss.grabImage(11,7,32,64);
+        player_image[6] = ss.grabImage(12,7,32,64);
 
 
-    }
+        animRight = new Animation(3,player_image[1],player_image[2],player_image[3]);
+        animLeft = new Animation(3,player_image[4],player_image[5],player_image[6]);
 
-
-    public Rectangle getBounds() {
-        return new Rectangle((int)x,(int)y,32,32);
     }
 
     @Override
     public void tick() {
-        x += velX;
-        y += velY;
 
-        x = Game.clamp(x,0,Game.WIDTH - 48);
-        y = Game.clamp(y,0,Game.HEIGHT - 68);
+        posX +=velX;
+        posY +=velY;
+
+        if (handler.isRight()){
+            velX = speed;
+            animRight.runAnimation();
+        }
+        else if (!handler.isLeft()){
+            velX = 0;
+        }
+
+        if (handler.isLeft()){
+            velX = -speed;
+            animLeft.runAnimation();
+        }
+        else if (!handler.isRight()){
+            velX = 0;
+        }
+
 
         collision();
-    }
 
-    private void collision(){
-        //loops until it finds enemy
-        for (int i = 0; i < handler.object.size(); i++){
-            GameObject tempObject = handler.object.get(i);
-            //if Player intersects with enemy, health is reduced
-            if (tempObject.getId() == ID.BasicEnemy || tempObject.getId() == ID.FastEnemy
-                    || tempObject.getId() == ID.SmartEnemy || tempObject.getId() == ID.BossEnemy)
-                if (getBounds().intersects(tempObject.getBounds())){
-                    System.out.println("COLLISION!");
-                    HUD.HEALTH -= 2;
-                }
-        }
     }
 
     @Override
     public void render(Graphics g) {
+        if (velX == 0){
+            g.drawImage(player_image[0],(int)posX,(int)posY,width,height,null);
 
-        //use this to see collision box
+        }else if (handler.isRight()){
+            animRight.drawAnimation(g,posX,posY,0);
+        }else if (handler.isLeft()){
+            animLeft.drawAnimation(g,posX,posY,0);
+        }
+
+//        //use this to see collision box
 //        Graphics2D g2d = (Graphics2D) g;
-//        g.setColor(Color.green);
+//        g.setColor(Color.pink);
 //        g2d.draw(getBounds());
 
 
-        g.setColor(Color.black);
-        g.fillRect((int)x,(int)y,32,32);
     }
+
+    private void collision() {
+        posX = Game.clamp(posX,0,Game.WIDTH - 48);
+//        posY = Game.clamp(posY,0,Game.HEIGHT - 68);
+    }
+
+
+
+    public static void drinkBeer(){
+        System.out.println("Drinking Beer!");
+        drunkLevel = drunkLevel++;
+
+        speed = speed-2;
+    }
+
+
+
+
+    @Override
+    public Rectangle getBounds() {
+        return new Rectangle((int)posX,(int)posY,width,height);
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
+    public static int getDrunkLevel() {
+        return drunkLevel;
+    }
+
+    public static void setDrunkLevel(int drunkLevel) {
+        Player.drunkLevel = drunkLevel;
+    }
+
+
 }
+
+
+
+
+
+
+
+
+

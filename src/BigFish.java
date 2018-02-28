@@ -58,10 +58,10 @@ public class BigFish extends GameObject{
             g.drawImage(bigfish_image[3],(int)posX,(int)posY,null);
         }
 
-        //use this to see collision box
-        Graphics2D g2d = (Graphics2D) g;
-        g.setColor(Color.pink);
-        g2d.draw(getBounds());
+//        //use this to see collision box
+//        Graphics2D g2d = (Graphics2D) g;
+//        g.setColor(Color.pink);
+//        g2d.draw(getBounds());
     }
 
     @Override

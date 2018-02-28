@@ -1,20 +1,42 @@
+/*
+ * Copyright (c) 2018. Mark James Tilbrook
+ */
+
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
 
 
 
-public class Game extends Canvas implements Runnable{
+public class Game extends Canvas implements Runnable {
 
-    public static final int WIDTH = 640, HEIGHT = WIDTH / 12*9;
+    public static final int WIDTH = 450;
+    public static final int HEIGHT = 750;
 
-    private boolean running = false;
+    private boolean isRunning = false;
     private Thread thread;
 
     private Handler handler;
+    private BufferedImage sprite_sheet = null;
+    private SpriteSheet ss;
+
     private HUD hud;
     private Spawn spawner;
     private Menu menu;
+    private Player player;
+    private Dock dock;
+    private Dock dock1;
+    private Dock dock2;
+    private Dock dock3;
+    private Dock dock4;
+
+
+
+
     private Random r;
 
 
@@ -22,125 +44,165 @@ public class Game extends Canvas implements Runnable{
         Menu,
         Help,
         Game
-    };
+    }
 
-    public STATE gameSTATE = STATE.Menu;
+    public STATE gameState = STATE.Menu;
 
 
-    //class constructor(initialize in here)
+    //constructor
     public Game(){
 
         handler = new Handler();
-
-        menu = new Menu(this, handler);
-
-        this.addKeyListener(new KeyInput(handler));
-        this.addMouseListener(menu);
-//        this.addMouseMotionListener(new MouseInput(handler));
-
-
-        new Window(WIDTH,HEIGHT,"Game!!!",this);
-
         hud = new HUD();
-        spawner = new Spawn(handler,hud);
+        menu = new Menu(this,handler,hud);
+
+        //create docks
+        dock = new Dock(0,620,ID.Dock,handler,ss);
+        dock1 = new Dock(96,620,ID.Dock,handler,ss);
+        dock2 = new Dock(192,620,ID.Dock,handler,ss);
+        dock3 = new Dock(288,620,ID.Dock,handler,ss);
+        dock4 = new Dock(384,620,ID.Dock,handler,ss);
+
+        this.addKeyListener(new KeyInput(handler, hud));
+        this.addMouseListener(menu);
+        this.addMouseListener(new MouseInput(handler,hud));
+        new Window(WIDTH,HEIGHT,"Catch Fish",this);
+        start();
+
+
+        spawner = new Spawn(handler,hud,player);
+
+
         r = new Random();
 
-        if (gameSTATE == STATE.Game) {
+        if (gameState == STATE.Game){
 
-            handler.addObject(new Player(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player, handler));//player
-            handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT),
-                    ID.BasicEnemy, handler));//first enemy
+            //add player
+            handler.addObject(new Player(WIDTH/2,635,ID.Player,handler,this,ss));
+
+            //add first fish
+            handler.addObject(new SmallFish(r.nextInt(Game.WIDTH - 60),0,ID.SmallFish,handler,ss,hud));
         }
 
 
+
+
     }
+
+
+
 
     //starts thread
-    public synchronized void start(){
+    public void start(){
+        isRunning = true;
         thread = new Thread(this);
         thread.start();
-        running = true;
     }
-
     //stops thread
-    public synchronized void stop(){
+    public void stop(){
+        isRunning = false;
         try{
             thread.join();
-            running = false;
-        }catch(Exception e){
+        }catch (InterruptedException e){
             e.printStackTrace();
         }
     }
 
     public void run(){
-
+        //game loop
         this.requestFocus();
         long lastTime = System.nanoTime();
         double amountOfTicks = 60.0;
-        double ns = 1000000000/amountOfTicks;
+        double ns = 1000000000 / amountOfTicks;
         double delta = 0;
         long timer = System.currentTimeMillis();
         int frames = 0;
-
-        //game loop
-        while (running){
-
+        while(isRunning) {
             long now = System.nanoTime();
-            delta += (now - lastTime) /ns;
+            delta += (now - lastTime) / ns;
             lastTime = now;
-            while (delta >= 1){
+            while(delta >= 1) {
                 tick();
+                //updates++;
                 delta--;
             }
-            if (running){
-                render();
-                frames++;
-            }
-            if (System.currentTimeMillis() - timer > 1000){
+            render();
+            frames++;
+
+            if(System.currentTimeMillis() - timer > 1000) {
                 timer += 1000;
                 frames = 0;
+                //updates = 0;
             }
         }
         stop();
     }
 
-    private void tick(){
+
+    public void tick(){
+
         handler.tick();
 
-        if (gameSTATE == STATE.Game){
+
+        dock.tick();
+        dock1.tick();
+        dock2.tick();
+        dock3.tick();
+        dock4.tick();
+
+
+        if (gameState == STATE.Game){
+
             hud.tick();
             spawner.tick();
-        }else if (gameSTATE == STATE.Menu){
+
+        }else if (gameState == STATE.Menu){
             menu.tick();
         }
 
     }
 
-    private void render(){
+    public void render(){
         BufferStrategy bs = this.getBufferStrategy();
         if (bs == null){
-            this.createBufferStrategy(3);
+            createBufferStrategy(3);
             return;
         }
 
         Graphics g = bs.getDrawGraphics();
+//        Graphics2D g2d = (Graphics2D) g;
+        /////////////////////////////////
 
-        g.setColor(Color.white);
+        g.setColor(Color.cyan);
         g.fillRect(0,0,WIDTH,HEIGHT);
 
-        handler.render(g);
+        if (gameState == STATE.Game){
+            //render docks
+            dock.render(g);
+            dock1.render(g);
+            dock2.render(g);
+            dock3.render(g);
+            dock4.render(g);
 
-        if (gameSTATE == STATE.Game) {
+            handler.render(g);
             hud.render(g);
-        }else if (gameSTATE == STATE.Menu || gameSTATE == STATE.Help){
+
+
+        }else if (gameState == STATE.Menu || gameState == STATE.Help){
             menu.render(g);
         }
 
 
+
+
+
+
+
+        ////////////////////////////
         g.dispose();
         bs.show();
-    }
 
+    }
 
     public static float clamp(float var, float min, float max){
         if (var >= max){
@@ -153,14 +215,8 @@ public class Game extends Canvas implements Runnable{
     }
 
 
-
-
-
-
-
-
-
     public static void main(String[] args) {
         new Game();
     }
+
 }

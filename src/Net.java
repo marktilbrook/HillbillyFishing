@@ -79,16 +79,15 @@ public class Net extends GameObject{
                 }
 
             }
-//            // net collision with snake
-//            if (tempObject.getId() == ID.Snake) {
-//                if (getBounds().intersects(tempObject.getBounds())) {
-//                    HUD.HEALTH -= 25;
-//                    System.out.println("DAMAGE!");
-//                    handler.removeObject(this);
-//                    handler.removeObject(tempObject);
-//                }
-//
-//            }
+            // net collision with money fish
+            if (tempObject.getId() == ID.MoneyFish) {
+                if (getBounds().intersects(tempObject.getBounds())) {
+                    System.out.println("Money Fish Caught!");
+                    handler.removeObject(this);
+                    handler.removeObject(tempObject);
+                }
+
+            }
 
         }
 

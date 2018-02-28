@@ -67,6 +67,12 @@ public class Dock extends GameObject{
                     handler.removeObject(tempObject);
                 }
             }
+            if (tempObject.getId() == ID.MoneyFish) {
+
+                if (getBounds().intersects(tempObject.getBounds())) {
+                    handler.removeObject(tempObject);
+                }
+            }
             if (tempObject.getId() == ID.BeerPickUp) {
 
                 if (getBounds().intersects(tempObject.getBounds())) {

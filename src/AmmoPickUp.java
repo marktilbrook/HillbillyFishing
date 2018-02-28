@@ -93,4 +93,3 @@ public class AmmoPickUp extends GameObject {
 
 }
 
-//todo change this to be a random pick up of net or ammo

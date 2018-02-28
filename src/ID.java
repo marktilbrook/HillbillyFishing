@@ -1,9 +1,12 @@
 public enum ID {
-
-    Player(),
-    Trail(),
-    FastEnemy(),
-    BossEnemy(),
-    SmartEnemy(),
-    BasicEnemy();
+    Player,
+    SmallFish,
+    BigFish,
+    Snake,
+    MoneyFish,
+    BeerPickUp,
+    AmmoPickUp,
+    Bullet,
+    Net,
+    Dock;
 }

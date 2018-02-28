@@ -5,19 +5,27 @@ public class HUD {
     public static float HEALTH = 100;
     private float greenVal = 255;
 
-    private int score = 0;
+    private int  smallFish = 0;
+    private int  bigFish = 0;
+    private int fishCaught = 0;
+    private int snakesKilled = 0;
+    private int drunkLevel = 0;
+    private int ammo = 11;
+    private int nets = 3;
+
+    private int time = 0;
     private int level = 1;
 
 
-    public void tick(){
 
+    //todo add money fish
+
+    public void tick(){
         HEALTH = Game.clamp(HEALTH,0,100);
         greenVal = Game.clamp(greenVal,0,255);
         greenVal = HEALTH*2;
-
-
-        score++;
-
+        fishCaught = smallFish + bigFish;
+        time++;
 
     }
 
@@ -29,23 +37,23 @@ public class HUD {
         g.setColor(Color.white);
         g.drawRect(15,15,200,32);
 
+        g.setColor(Color.RED);
+        g.drawString("LEVEL: " + level,Game.WIDTH/2 + 80,30);
+        g.drawString("Time: " + time ,Game.WIDTH/2 + 80,50);
         g.setColor(Color.black);
-        g.drawString("SCORE: " + score,15,66);
-        g.drawString("LEVEL " + level,15,86);
+        g.drawString("Small Fish: " + smallFish,15,66);
+        g.drawString("Big Fish: " + bigFish,15,86);
+        g.drawString("Fish Caught: " + fishCaught ,15,106);
+        g.drawString("Snakes Killed: " + snakesKilled ,15,126);
+        g.drawString("Drunk level: " + drunkLevel ,15,146);
 
-        //prints to screen if health == 0
-        if (HEALTH == 0){
-            g.setColor(Color.black);
-            g.drawString("DEAD!", Game.WIDTH/2, Game.HEIGHT/2);
-        }
+        g.drawString("AMMO: " + ammo,15, 400);
+        g.drawString("NETS: " + nets,15, 450);
+
     }
 
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
+    public void increaseLevel(){
+        level++;
     }
 
     public int getLevel() {
@@ -54,5 +62,54 @@ public class HUD {
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+
+    public int getSmallFish() {
+        return smallFish;
+    }
+
+    public void setSmallFish(int smallFish) {
+        this.smallFish = smallFish;
+    }
+
+    public int getBigFish() {
+        return bigFish;
+    }
+
+    public void setBigFish(int bigFish) {
+        this.bigFish = bigFish;
+    }
+
+    public int getDrunkLevel() {
+        return drunkLevel;
+    }
+
+    public void setDrunkLevel(int drunkLevel) {
+        this.drunkLevel = drunkLevel;
+    }
+
+    public int getAmmo() {
+        return ammo;
+    }
+
+    public void setAmmo(int ammo) {
+        this.ammo = ammo;
+    }
+
+    public int getSnakesKilled() {
+        return snakesKilled;
+    }
+
+    public void setSnakesKilled(int snakesKilled) {
+        this.snakesKilled = snakesKilled;
+    }
+
+    public int getNets() {
+        return nets;
+    }
+
+    public void setNets(int nets) {
+        this.nets = nets;
     }
 }
