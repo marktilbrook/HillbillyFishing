@@ -120,8 +120,10 @@ public class Menu extends MouseAdapter{
             g.drawRect(25,10,90,44);
 
             g.drawString("Use WASD to move Player",75,150);
-            g.drawString("1. Catch Fish",75,200);
-            g.drawString("2. Avoid the Snakes",75,250);
+            g.drawString("Click to shoot",75,200);
+            g.drawString("Space to deploy net",75,250);
+            g.drawString("1. Catch Fish",75,300);
+            g.drawString("2. Avoid the Snakes",75,350);
         }
 
     }
