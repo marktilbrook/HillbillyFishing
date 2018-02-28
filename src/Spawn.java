@@ -4,66 +4,42 @@ public class Spawn {
 
     private Handler handler;
     private HUD hud;
-    private SpriteSheet ss;
-    private Player player;
 
     private Random r = new Random();
 
+    private int scoreKeep = 0;
 
-    private int timer = 0;
-
-    //constructor
-    public Spawn(Handler handler, HUD hud,Player player) {
+    public Spawn(Handler handler, HUD hud) {
         this.handler = handler;
         this.hud = hud;
-        this.player = player;
-
-
-
-
     }
 
-    public void tick(){
+    // when score hits 1000, level is incremented
+    public void tick() {
+        scoreKeep++;
 
-        timer++;
+        if (scoreKeep >= 250) {
+            scoreKeep = 0;
+            hud.setLevel(hud.getLevel() + 1);
 
-        if (timer>=600){
-            timer = 0;
-            hud.setLevel(hud.getLevel()+1);
-            //todo work on level design
-
-            switch (hud.getLevel()){
-
-                case 2:
-                    System.out.println("Level 2");
-                    handler.addObject(new SmallFish(r.nextInt(Game.WIDTH - 60),-r.nextInt(1200),ID.SmallFish,handler,ss,hud));
-                    handler.addObject(new SmallFish(r.nextInt(Game.WIDTH - 60),-r.nextInt(1200),ID.SmallFish,handler,ss,hud));
-                    handler.addObject(new SmallFish(r.nextInt(Game.WIDTH - 60),-r.nextInt(1200),ID.SmallFish,handler,ss,hud));
-                    handler.addObject(new BigFish(r.nextInt(Game.WIDTH - 60),-r.nextInt(600),ID.BigFish,handler,ss,hud));
-                    handler.addObject(new BeerPickUp(r.nextInt(Game.WIDTH - 60),-r.nextInt(1200),ID.BeerPickUp,handler,ss,hud,player));
-                    handler.addObject(new AmmoPickUp(r.nextInt(Game.WIDTH - 60),-r.nextInt(1200),ID.AmmoPickUp,handler,ss,hud,player));
-                    break;
-
-                case 3:
-                    System.out.println("Level 3");
-                    handler.addObject(new BigFish(r.nextInt(Game.WIDTH - 60),-r.nextInt(600),ID.BigFish,handler,ss,hud));
-                    handler.addObject(new Snake(r.nextInt(Game.WIDTH - 60),-r.nextInt(1200),ID.Snake,handler,ss,hud));
-                    handler.addObject(new AmmoPickUp(r.nextInt(Game.WIDTH - 60),-r.nextInt(1200),ID.AmmoPickUp,handler,ss,hud,player));
-                    handler.addObject(new BigFish(r.nextInt(Game.WIDTH - 60),-r.nextInt(600),ID.BigFish,handler,ss,hud));
-                    break;
-
-                case 4:
-                    System.out.println("Level 4");
-                    handler.addObject(new BigFish(r.nextInt(Game.WIDTH - 60),-r.nextInt(600),ID.BigFish,handler,ss,hud));
-                    handler.addObject(new Snake(r.nextInt(Game.WIDTH - 60),-r.nextInt(1200),ID.Snake,handler,ss,hud));
-                    break;
-
+            //spawns new enemy if level is incremented
+            if (hud.getLevel() == 2) {
+                handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT),
+                        ID.BossEnemy, handler));
+            } else if (hud.getLevel() == 3) {
+                handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT),
+                        ID.BasicEnemy, handler));
+            } else if (hud.getLevel() == 4) {
+                handler.addObject(new FastEnemy(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT),
+                        ID.FastEnemy, handler));
+            } else if (hud.getLevel() == 5) {
+                handler.addObject(new SmartEnemy(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT),
+                        ID.SmartEnemy, handler));
+            } else if (hud.getLevel() == 6) {
+                handler.clearEnemies();
+                handler.addObject(new BossEnemy(Game.WIDTH/2 -48, -120,
+                        ID.BossEnemy, handler));
             }
-
-
-        }
-
+       }
     }
-
-
 }

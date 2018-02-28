@@ -1,38 +1,42 @@
-import java.awt.event.MouseAdapter;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.MouseInfo;
 import java.awt.event.MouseEvent;
 
-public class MouseInput extends MouseAdapter {
+public class MouseInput implements MouseMotionListener {
 
     private Handler handler;
-    private HUD hud;
+    private int mPosX;
+    private int mPosY;
 
-
-    public MouseInput(Handler handler, HUD hud) {
-        this.handler = handler;
-        this.hud = hud;
-
-
+    public MouseInput(Handler mouseHandler) {
+        this.handler = mouseHandler;
     }
 
+    @Override
+    public void mouseDragged(MouseEvent e) {
 
+        mPosX = e.getX();
+        mPosY = e.getY();
+        e.consume();
+    }
 
     @Override
-    public void mousePressed(MouseEvent e) {
-        int mouseX = e.getX();
-        int mouseY = e.getY();
+    public void mouseMoved(MouseEvent e) {
 
-        for (int i = 0; i < handler.object.size(); i++){
+        mPosX = e.getX();
+        mPosY = e.getY();
+
+        System.out.println(mPosX + ", " + mPosY);
+
+        for (int i = 0; i<handler.object.size(); i++){
             GameObject tempObject = handler.object.get(i);
 
             if (tempObject.getId() == ID.Player){
-                    if (hud.getAmmo()>=1) {
-                        handler.addObject(new Bullet(tempObject.getPosX(), tempObject.getPosY(), ID.Bullet, handler, mouseX, mouseY));
-                        hud.setAmmo(hud.getAmmo()-1);
-                    }
-
-
-
+                tempObject.setX(mPosX);
+                tempObject.setY(mPosY);
             }
         }
+        e.consume();
     }
 }
