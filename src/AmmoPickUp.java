@@ -36,7 +36,7 @@ public class AmmoPickUp extends GameObject {
         ammo_image = ss.grabImage(7, 8, 32, 32);
 
 
-        velY = 5;
+        velY = 4;
     }
 
     @Override
@@ -72,6 +72,7 @@ public class AmmoPickUp extends GameObject {
             if (tempObject.getId() == ID.Player) {
                 if (getBounds().intersects(tempObject.getBounds())) {
                     hud.setAmmo(hud.getAmmo()+3);
+                    hud.setNets(hud.getNets()+1);
 
                     handler.removeObject(this);
 
@@ -91,3 +92,5 @@ public class AmmoPickUp extends GameObject {
     }
 
 }
+
+//todo change this to be a random pick up of net or ammo
