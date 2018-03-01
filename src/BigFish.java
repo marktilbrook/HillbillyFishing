@@ -3,7 +3,7 @@ import java.awt.image.BufferedImage;
 
 public class BigFish extends GameObject{
 
-    private int width = 28;
+    private int width = 18;
     private int height = 64;
     private boolean isDead = false;
 
@@ -58,15 +58,15 @@ public class BigFish extends GameObject{
             g.drawImage(bigfish_image[3],(int)posX,(int)posY,null);
         }
 
-//        //use this to see collision box
-//        Graphics2D g2d = (Graphics2D) g;
-//        g.setColor(Color.pink);
-//        g2d.draw(getBounds());
+        //use this to see collision box
+        Graphics2D g2d = (Graphics2D) g;
+        g.setColor(Color.pink);
+        g2d.draw(getBounds());
     }
 
     @Override
     public Rectangle getBounds() {
-        return new Rectangle((int)posX,(int)posY,width,height);
+        return new Rectangle((int)posX+10,(int)posY,width,height);
     }
 
     public void collision(){

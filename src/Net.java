@@ -46,10 +46,10 @@ public class Net extends GameObject{
     public void render(Graphics g) {
         g.drawImage(net_image,(int)posX,(int)posY,null);
 
-////        use this to see collision box
-//        Graphics2D g2d = (Graphics2D) g;
-//        g.setColor(Color.pink);
-//        g2d.draw(getBounds());
+//        use this to see collision box
+        Graphics2D g2d = (Graphics2D) g;
+        g.setColor(Color.pink);
+        g2d.draw(getBounds());
     }
 
     public void collision(){
@@ -83,6 +83,7 @@ public class Net extends GameObject{
             if (tempObject.getId() == ID.MoneyFish) {
                 if (getBounds().intersects(tempObject.getBounds())) {
                     System.out.println("Money Fish Caught!");
+                    hud.setMoneyFish(hud.getMoneyFish()+1);
                     handler.removeObject(this);
                     handler.removeObject(tempObject);
                 }
@@ -105,7 +106,7 @@ public class Net extends GameObject{
 
     @Override
     public Rectangle getBounds() {
-        return new Rectangle((int)posX+12,(int)posY+15,width,height);
+        return new Rectangle((int)posX+5,(int)posY+15,width+12,height);
     }
 }
 

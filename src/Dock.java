@@ -38,10 +38,10 @@ public class Dock extends GameObject{
 
         g.drawImage(dockImage,(int)posX,(int)posY,null);
 
-//        use this to see collision box
-        Graphics2D g2d = (Graphics2D) g;
-        g.setColor(Color.pink);
-        g2d.draw(getBounds());
+////        use this to see collision box
+//        Graphics2D g2d = (Graphics2D) g;
+//        g.setColor(Color.pink);
+//        g2d.draw(getBounds());
     }
 
     public void collision() {

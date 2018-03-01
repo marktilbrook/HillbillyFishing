@@ -69,6 +69,7 @@ public class MoneyFish extends GameObject{
 
                     if (getBounds().intersects(tempObject.getBounds())){
                         System.out.println("Money Fish Caught!");
+                        hud.setMoneyFish(hud.getMoneyFish()+1);
 
                         handler.removeObject(this);
                     }

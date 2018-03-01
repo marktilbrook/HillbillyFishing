@@ -5,8 +5,9 @@ public class HUD {
     public static float HEALTH = 100;
     private float greenVal = 255;
 
-    private int  smallFish = 0;
-    private int  bigFish = 0;
+    private int smallFish = 0;
+    private int bigFish = 0;
+    private int moneyFish = 0;
     private int fishCaught = 0;
     private int snakesKilled = 0;
     private int drunkLevel = 0;
@@ -24,7 +25,7 @@ public class HUD {
         HEALTH = Game.clamp(HEALTH,0,100);
         greenVal = Game.clamp(greenVal,0,255);
         greenVal = HEALTH*2;
-        fishCaught = smallFish + bigFish;
+        fishCaught = smallFish + bigFish + moneyFish;
         time++;
 
     }
@@ -43,9 +44,10 @@ public class HUD {
         g.setColor(Color.black);
         g.drawString("Small Fish: " + smallFish,15,66);
         g.drawString("Big Fish: " + bigFish,15,86);
-        g.drawString("Fish Caught: " + fishCaught ,15,106);
-        g.drawString("Snakes Killed: " + snakesKilled ,15,126);
-        g.drawString("Drunk level: " + drunkLevel ,15,146);
+        g.drawString("Money Fish: " + moneyFish,15,106);
+        g.drawString("Fish Caught: " + fishCaught ,15,126);
+        g.drawString("Snakes Killed: " + snakesKilled ,15,146);
+        g.drawString("Drunk level: " + drunkLevel ,15,166);
 
         g.drawString("AMMO: " + ammo,15, 400);
         g.drawString("NETS: " + nets,15, 450);
@@ -111,5 +113,13 @@ public class HUD {
 
     public void setNets(int nets) {
         this.nets = nets;
+    }
+
+    public int getMoneyFish() {
+        return moneyFish;
+    }
+
+    public void setMoneyFish(int moneyFish) {
+        this.moneyFish = moneyFish;
     }
 }
